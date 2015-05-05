@@ -1,0 +1,112 @@
+body{
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	-ms-transition: none !important;
+	-o-transition: none !important;
+
+	padding: 0;
+	margin: 0;
+	background: #EEE;
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+#contentContainer{
+	padding: 1em;
+}
+
+#content{
+	/*float: left;*/
+	margin-left: auto;
+	margin-right: auto;
+	width: 32em;
+
+	padding: 1em;
+
+	background: #FFF;
+	box-shadow: 0 0 5px #888;
+}
+
+#addOption{
+	/*background: purple;*/
+	vertical-align: middle;
+	width: 100%;
+}
+
+#addOptionTextBox{
+	margin-top: 20px;
+	margin-right: 12px;
+
+	padding-left: .4em;
+	padding-right: .4em;
+
+	line-height: 2em;
+
+	float: right;
+	height: 24px;
+	background: rgba(0, 0, 0, .5);
+    border-radius: 3px;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 10pt;
+	opacity: 0;
+
+	-webkit-transition: opacity .3s;
+}
+
+#addOptionButton:hover + #addOptionTextBox{
+	opacity: 1;
+}
+
+#addOptionButton{
+	float: right;
+	box-shadow: 0 0 5px #888;
+
+	width: 64px;
+    height: 64px;
+    border-radius: 32px;
+	background: #F44336;
+
+	/*symbol*/
+	color: #FFF;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 39px;
+	line-height: 64px;
+	cursor: pointer;
+
+	-webkit-transition: transform .3s, background .3s;
+}
+
+.addOptionButtonIcon{
+	height: 128px;
+	width: 128px;
+	background-size: 128px 128px;
+}
+
+#addIcon{
+	background: url(add.svg);
+}
+
+#editIcon{
+	background: url(edit.svg);
+}
+
+#sendIcon{
+	background: url(send.svg);
+}
+
+#addOptionButton:hover{
+	background: #E53935;
+	transform: rotate(180deg);
+}
+
+#storyBox{
+	background: green;
+	padding: .5em;
+}
+
+.optionBox{
+	margin-top: .5em;
+	padding: .5em;
+	background: blue;
+}
