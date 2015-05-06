@@ -10,43 +10,61 @@ pageTemplate = """
 	<title>adv</title>
 </head>
 <body>
-	<div id="contentContainer">
+	<div id="page">
 		<div id="bgTopColor"></div>
 		<div id="bgTitleColor"></div>
-		<div id="title">%s</div>
-		<div id="content">
-			<div id="addOption">
-				<div id="addOptionButton" onclick="userCreateAction()">
-					<div id="addIcon" class="addOptionButtonIcon">
-					</div>
-					<div id="editIcon" class="addOptionButtonIcon">
-					</div>
-					<div id="sendIcon" class="addOptionButtonIcon">
-					</div>
-				</div>
-				<div id="addOptionTextBox">add your own action</div>
-				<textarea id="actionEntry" placeholder="do something..." required></textarea>
-			</div>
-			%s
-			<hr/>
-			%s
-		</div>
+		%s
 	</div>
 </body>
 </html>
+"""
+
+boxTemplate = """
+<div id="titleBox">%s</div>
+<div id="content">%s</div>
+"""
+
+buttonTemplate = """
+<div class="button" onclick="gotoPage('%s')">%s</div>
 """
 
 storyTemplate = """
 <div id="storyBox">
 	%s
 </div>
+<hr/>
+%s
+<div id="newChoiceContainer" class="optionBox">
+	<div id="newChoiceSubmit" class="button" onclick="userCreateChoice()">Submit</div>
+	<div id="newChoiceEntryContainerContainer">
+		<div id="newChoiceEntryContainer">
+			<form id="userSubmitChoice" method="post" action="/adv/submit">
+				<input name="choice" id="newChoiceEntry" type="text" placeholder="do something else?">
+			</form>
+		</div>
+	</div>
+</div>
 """
 
 optionTemplate = """
-<div class="optionBox" onclick="selectOption('%s')">
+<div class="optionBox clickable" onclick="selectOption('%s')">
 	%s
 </div>
 """
+
+def renderWelcome():
+	welcomeTitle = 'hmmm...'
+	return pageTemplate % (
+		boxTemplate % (
+			welcomeTitle, '<div style="margin: 2em;">' + buttonTemplate % (
+				'start', 'begin') + 'a bunch of text that says stuff</div>'))
+
+def renderStory(title = False, story = False, options = False):
+	return pageTemplate % (boxTemplate % ("title", storyTemplate % ("story",
+		optionTemplate % ("test1", "do something") +
+		optionTemplate % ("test2", "do something else") +
+		optionTemplate % ("test3", "do yet antoher thing")
+		)))
 
 def printScene(scene):
 	outString = ''
@@ -71,14 +89,8 @@ def application(environ, start_response):
 
 	start_response('200 OK', [('Content-Type','text/html')])
 	#return [b'Hello World']
-	return [
-		str.encode(
-			pageTemplate % ("name of previous action",
-				(storyTemplate % "something happens...<br/>possibly long<br/>with many lines<br/>...<br/>...<br/>yep"),
-				((optionTemplate % ("test1", "do something"))
-				+ (optionTemplate % ("test2","do something else"))
-				+ (optionTemplate % ("test3","do yet another thing")))))
-		]
+	#return [str.encode(renderWelcome())]
+	return [str.encode(renderStory("test"))]
 
 	# build the response body possibly using the environ dictionary
 	#response_body = 'The request method was %s' % environ['REQUEST_METHOD']
