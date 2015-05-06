@@ -4,20 +4,32 @@ import json
 pageTemplate = """
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="adv.css">
+	<link rel="stylesheet" type="text/css" href="/adv.css">
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+	<script src="/adv.js"></script>
+	<title>adv</title>
 </head>
 <body>
 	<div id="contentContainer">
+		<div id="bgTopColor"></div>
+		<div id="bgTitleColor"></div>
+		<div id="title">%s</div>
 		<div id="content">
-			%s
 			<div id="addOption">
-				<div id="addOptionButton">
-					<div id="addIcon" class="addOptionButtonIcon"></div>
-					<div id="editIcon" class="addOptionButtonIcon"></div>
-					<div id="sendIcon" class="addOptionButtonIcon"></div>
+				<div id="addOptionButton" onclick="userCreateAction()">
+					<div id="addIcon" class="addOptionButtonIcon">
+					</div>
+					<div id="editIcon" class="addOptionButtonIcon">
+					</div>
+					<div id="sendIcon" class="addOptionButtonIcon">
+					</div>
 				</div>
-				<div id="addOptionTextBox">add your own choice</div>
+				<div id="addOptionTextBox">add your own action</div>
+				<textarea id="actionEntry" placeholder="do something..." required></textarea>
 			</div>
+			%s
+			<hr/>
+			%s
 		</div>
 	</div>
 </body>
@@ -31,7 +43,7 @@ storyTemplate = """
 """
 
 optionTemplate = """
-<div class="optionBox">
+<div class="optionBox" onclick="selectOption('%s')">
 	%s
 </div>
 """
@@ -61,11 +73,11 @@ def application(environ, start_response):
 	#return [b'Hello World']
 	return [
 		str.encode(
-			pageTemplate % (
-				(storyTemplate % "something happens...<br/>possibly long<br/>with many lines<br/>...<br/>...<br/>yep")
-				+ (optionTemplate % "do something")
-				+ (optionTemplate % "do something else")
-				+ (optionTemplate % "do yet another thing")))
+			pageTemplate % ("name of previous action",
+				(storyTemplate % "something happens...<br/>possibly long<br/>with many lines<br/>...<br/>...<br/>yep"),
+				((optionTemplate % ("test1", "do something"))
+				+ (optionTemplate % ("test2","do something else"))
+				+ (optionTemplate % ("test3","do yet another thing")))))
 		]
 
 	# build the response body possibly using the environ dictionary

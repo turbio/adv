@@ -1,38 +1,98 @@
 body{
-	-webkit-transition: none !important;
-	-moz-transition: none !important;
-	-ms-transition: none !important;
-	-o-transition: none !important;
-
 	padding: 0;
 	margin: 0;
 	background: #EEE;
-	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+	/* font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; */
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	/*overflow: hidden;*/
+}
+
+hr{
+	border: 0;
+	height: 1px;
+	background: #DDD;
+	width: 98%;
+	/*box-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);*/
+}
+
+#actionEntry{
+	position: relative;
+	right: -3em;
+
+	top: -0.75em;
+	border: solid;
+	border-color: #666;
+	border-width: 2px;
+	height: 5em;
+	width: 80%;
+	box-sizing: border-box;
+	resize: none;
+
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 14pt;
+	z-index: 0;
+	display: none;
+
+	/*transform: translate(-10em, 0);*/
+	/*opacity: 0;*/
+	/*-webkit-transition: opacity .2s, transform .2s;*/
 }
 
 #contentContainer{
-	padding: 1em;
+	padding: 0;
+	position: relative;
+}
+
+@media (max-width: 32em){
+	#content{
+		width: 100%;
+	}
+}
+
+@media (min-width: 32em){
+	#content{
+		width: 32em;
+	}
 }
 
 #content{
 	/*float: left;*/
 	margin-left: auto;
 	margin-right: auto;
-	width: 32em;
 
-	padding: 1em;
+	padding-bottom: .5em;
 
 	background: #FFF;
 	box-shadow: 0 0 5px #888;
+
+	position: relative;
+}
+
+@media (max-width: 32em){
+	#addOption{
+		top: -2em;
+	}
+}
+
+@media (min-width: 32em){
+	#addOption{
+		bottom: -2em;
+	
+		resize: none;
+}
 }
 
 #addOption{
 	/*background: purple;*/
 	vertical-align: middle;
 	width: 100%;
+
+	position: absolute;
+		right: 1em;
 }
 
 #addOptionTextBox{
+	position: relative;
 	margin-top: 20px;
 	margin-right: 12px;
 
@@ -43,7 +103,7 @@ body{
 
 	float: right;
 	height: 24px;
-	background: rgba(0, 0, 0, .5);
+	background: rgba(0, 0, 0, .75);
     border-radius: 3px;
 	color: #FFF;
 	font-weight: bold;
@@ -51,6 +111,8 @@ body{
 	opacity: 0;
 
 	-webkit-transition: opacity .3s;
+	transition: opacity .3s;
+	display: block;
 }
 
 #addOptionButton:hover + #addOptionTextBox{
@@ -58,6 +120,7 @@ body{
 }
 
 #addOptionButton{
+	position: relative;
 	float: right;
 	box-shadow: 0 0 5px #888;
 
@@ -68,45 +131,110 @@ body{
 
 	/*symbol*/
 	color: #FFF;
-	text-align: center;
-	vertical-align: middle;
 	font-size: 39px;
 	line-height: 64px;
 	cursor: pointer;
 
-	-webkit-transition: transform .3s, background .3s;
+	transition: background .5s;
+	transition: background .5s;
+	z-index: 3;
 }
 
+div#addOptionButton {}
+
 .addOptionButtonIcon{
-	height: 128px;
-	width: 128px;
-	background-size: 128px 128px;
+	cursor: pointer;
+	margin: 20px;
+	position: absolute;
+	width: 24px;
+	height: 24px;
+}
+
+#addOptionButton:hover #addIcon{
+	transform: rotate(180deg);
+	opacity: 0;
+}
+
+#addOptionButton:hover #editIcon{
+	transform: rotate(0deg);
+	opacity: 1;
 }
 
 #addIcon{
-	background: url(add.svg);
+	background: url("add.svg");
+	-webkit-transition: transform .2s, opacity .2s;
+	transition: transform .2s, opacity .2s;
+	opacity: 1;
 }
 
 #editIcon{
-	background: url(edit.svg);
+	background: url("edit.svg");
+	-webkit-transition: transform .2s, opacity .2s;
+	transition: transform .2s, opacity .2s;
+	transform: rotate(-90deg);
+	opacity: 0;
 }
 
 #sendIcon{
-	background: url(send.svg);
+	background: url("send.svg");
+	opacity: 0;
 }
 
 #addOptionButton:hover{
 	background: #E53935;
-	transform: rotate(180deg);
 }
 
 #storyBox{
-	background: green;
-	padding: .5em;
+	color: #333;
+	padding: 1em;
+
+	font-weight: normal;
+	font-size: 1.5em;
+}
+
+#title{
+	font-size: 2em;
+	color: white;
+	text-align: center;
+	margin: 1em;
+	font-weight: 100;
+	/*text-shadow: 0 0 5px #888;*/
 }
 
 .optionBox{
-	margin-top: .5em;
-	padding: .5em;
-	background: blue;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+
+	padding: .75em;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+
+	background: #FFF;
+	cursor: pointer;
+
+	-webkit-transition: background 0.4s, box-shadow 0.3s;
+	transition: background 0.4s, box-shadow 0.3s;
+}
+
+.optionBox:hover{
+	background: #F8F8F8;
+	/*box-shadow: 0 0 10px #AAA;*/
+}
+
+#bgTopColor{
+	position: fixed;
+	top: 0;
+	height: 20%;
+	width: 100%;
+	background: #2196F3;
+	z-index: -1;
+}
+
+#bgTitleColor{
+	position: fixed;
+	top: 0;
+	height: 10em;
+	width: 100%;
+	background: #2196F3;
+	z-index: -1;
 }
