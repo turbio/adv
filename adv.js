@@ -3,7 +3,7 @@ function userCreateChoice(){
 }
 
 function selectOption(destination){
-	window.location.replace('/adv/' + destination);
+	gotoPage(destination);
 }
 
 function gotoPage(destination){

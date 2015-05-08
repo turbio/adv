@@ -139,6 +139,21 @@ form{
 	transition: background 0.4s, box-shadow 0.3s;
 }
 
+.optionBoxInvalid{
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+
+	padding: .75em;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+
+	background: #FFF;
+	color: #888;
+
+	-webkit-transition: background 0.4s, box-shadow 0.3s;
+	transition: background 0.4s, box-shadow 0.3s;
+}
+
 .clickable{
 	cursor: pointer;
 }
