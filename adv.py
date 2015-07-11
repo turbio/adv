@@ -5,9 +5,9 @@ import hashlib
 pageTemplate = """
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/adv.css">
+	<link rel="stylesheet" type="text/css" href="/static/style.css">
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
-	<script src="/adv.js"></script>
+	<script src="/static/script.js"></script>
 	<title>adv</title>
 </head>
 <body>
@@ -67,7 +67,7 @@ def renderWelcome():
 		boxTemplate % (
 			welcomeTitle,
 			'<div style="margin: 2em; overflow: hidden;">\
-			a bunch of text that says stuff<br/>'
+			adventure?'
 			+ buttonTemplate % ('start', 'begin') + '</div>'))
 
 def processSubmit(origin, request):
@@ -85,11 +85,6 @@ def processSubmit(origin, request):
 	adv[newItemHash] = {
 		'text': '',
 		'options': [
-			{
-				'text': '',
-				'destination': '',
-				'creator': True
-			}
 		]
 	}
 
@@ -122,6 +117,11 @@ def renderSubmit(request, backLoc):
 def renderStory(scene):
 	outString = pageTemplate % boxTemplate;
 	outString = outString % ('', storyTemplate)
+
+	if not scene in adv:
+		return 'oops, \"' + scene + '\" doesn\t appear to be in the story\
+			<br/>\
+			<a href="/adv">go back?</a>';
 
 	advScene = adv[scene]
 
@@ -193,12 +193,6 @@ def application(environ, start_response):
 
 		if length != 0:
 			submitedData = environ['wsgi.input'].read(length)
-
-		submitedData = (submitedData.decode().replace('%27', '\'')).encode()
-		submitedData = (submitedData.decode().replace('%3A', ':')).encode()
-		submitedData = (submitedData.decode().replace('%28', '(')).encode()
-		submitedData = (submitedData.decode().replace('%29', ')')).encode()
-		submitedData = (submitedData.decode().replace('%22', '"')).encode()
 
 		submitedData = submitedData.decode("utf-8") \
 			.replace('choice=', '') \
