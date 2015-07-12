@@ -70,37 +70,36 @@ def renderWelcome():
 			adventure?'
 			+ buttonTemplate % ('start', 'begin') + '</div>'))
 
-def processSubmit(origin, request):
-	if not origin in adv:
-		adv[origin] = {
-			'options': [ ]
-		}
+#def processSubmit(origin, request):
+	#if not origin in adv:
+		#adv[origin] = {
+			#'options': [ ]
+		#}
 
-	for option in adv[origin]['options']:
-		if option['text'] == request:
-			return True
+	#for option in adv[origin]['options']:
+		#if option['text'] == request:
+			#return True
 
-	newItemHash = hashlib.md5(str.encode(origin + request)).hexdigest()
+	#newItemHash = hashlib.md5(str.encode(origin + request)).hexdigest()
 
-	adv[newItemHash] = {
-		'text': '',
-		'options': [
-		]
-	}
+	#adv[newItemHash] = {
+		#'text': '',
+		#'options': [
+		#]
+	#}
 
-	adv[origin]['options'].append(
-		{
-			'text': request,
-			'destination': newItemHash,
-			'creator': True,
-		})
+	#adv[origin]['options'].append(
+		#{
+			#'text': request,
+			#'destination': newItemHash,
+			#'creator': True,
+		#})
 
-	advFileWrite = open('/srv/adv/story.json', 'w')
-	json.dump(adv, advFileWrite, indent=4)
-	advFileWrite.close()
+	#advFileWrite = open('/srv/adv/story.json', 'w')
+	#json.dump(adv, advFileWrite, indent=4)
+	#advFileWrite.close()
 
-
-	return True;
+	#return True;
 
 def renderSubmit(request, backLoc):
 	outString = pageTemplate % boxTemplate;
@@ -138,23 +137,6 @@ def renderStory(scene):
 
 	return outString
 
-def loadAdvFile():
-	global adv
-
-	try:
-		advFile = open('/srv/adv/story.json', 'r')
-	except:
-		return False;
-
-	advString = advFile.read()
-	advFile.close()
-
-	#parse json
-	adv = json.loads(advString)
-
-	#it got this far, it probably worked
-	return adv != None;
-
 def explodeUrl(url):
 	if len(url) > 1:
 		if url[0] == '/':
@@ -175,9 +157,6 @@ def explodeUrl(url):
 
 def application(environ, start_response):
 	start_response('200 OK', [('Content-Type','text/html')])
-
-	if not loadAdvFile():
-		return [u'couldn\'t load required files, internal server error i guess, 500?']
 
 	path = explodeUrl(environ.get('PATH_INFO', ''))
 
