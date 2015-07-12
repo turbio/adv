@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import json
 import hashlib
+from pymongo import MongoClient
+import pymongo
+from bson.objectid import ObjectId
 
 pageTemplate = """
 <html>
@@ -59,7 +62,7 @@ suggTemplate = """
 </div>
 """
 
-adv = None;
+story = MongoClient()['adv']['story']
 
 def renderWelcome():
 	welcomeTitle = ''
@@ -70,36 +73,49 @@ def renderWelcome():
 			adventure?'
 			+ buttonTemplate % ('start', 'begin') + '</div>'))
 
-#def processSubmit(origin, request):
-	#if not origin in adv:
-		#adv[origin] = {
-			#'options': [ ]
-		#}
+def processSubmit(origin, request):
 
-	#for option in adv[origin]['options']:
-		#if option['text'] == request:
-			#return True
+	if request == '':
+		return False
 
-	#newItemHash = hashlib.md5(str.encode(origin + request)).hexdigest()
+	try:
+		origin = ObjectId(origin)
+	except:
+		pass
 
-	#adv[newItemHash] = {
-		#'text': '',
-		#'options': [
-		#]
-	#}
+	originChapter = story.find_one({'_id': origin})
 
-	#adv[origin]['options'].append(
-		#{
-			#'text': request,
-			#'destination': newItemHash,
-			#'creator': True,
-		#})
+	for option in originChapter['options']:
+		if option['text'] == request:
+			return True
 
-	#advFileWrite = open('/srv/adv/story.json', 'w')
-	#json.dump(adv, advFileWrite, indent=4)
-	#advFileWrite.close()
+	newChapter = story.insert_one(
+		{
+			'options': [],
+			'text': ''
+		}
+	)
 
-	#return True;
+	result = story.update_one(
+		{'_id': origin},
+		{
+			'$push': {
+				'options': {
+					'destination': newChapter.inserted_id,
+					'text': request,
+					'creator': True
+				}
+			}
+		}
+	)
+
+	print(result)
+	print(result.acknowledged)
+	print(result.matched_count)
+	print(result.modified_count)
+	print(originChapter)
+
+	return True;
 
 def renderSubmit(request, backLoc):
 	outString = pageTemplate % boxTemplate;
@@ -117,23 +133,27 @@ def renderStory(scene):
 	outString = pageTemplate % boxTemplate;
 	outString = outString % ('', storyTemplate)
 
-	if not scene in adv:
+	try:
+		scene = ObjectId(scene)
+	except:
+		pass
+
+	chapter = story.find_one({'_id': scene})
+
+	if chapter is None:
 		return 'oops, \"' + scene + '\" doesn\t appear to be in the story\
 			<br/>\
 			<a href="/adv">go back?</a>';
 
-	advScene = adv[scene]
-
-	choices = ''
-	for option in advScene['options']:
-		if option['destination'] in adv \
-				and (adv[option['destination']]['text'] != ''):
-			choices += optionTemplate % (
+	options = ''
+	for option in chapter['options']:
+		if story.find_one({'_id': option['destination']})['text'] != '':
+			options += optionTemplate % (
 				option['destination'], option['text'])
 		else:
-			choices += suggTemplate % option['text']
+			options += suggTemplate % (option['text'])
 
-	outString = outString % (advScene['text'], choices, scene)
+	outString = outString % (chapter['text'], options, scene)
 
 	return outString
 
