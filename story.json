@@ -1,0 +1,11 @@
+{"_id":"start","options":[{"creator":true,"destination":{"$oid":"55a25a8503e82e51007cb36e"},"text":"look around"},{"creator":true,"destination":{"$oid":"55a25a8b03e82e51007cb36f"},"text":"check pockets"},{"creator":true,"destination":{"$oid":"55a25a9603e82e4ec33388bf"},"text":"approach the furby"}],"text":"you wake up lying on your back in an empty room"}
+{"_id":{"$oid":"55a25a8503e82e51007cb36e"},"options":[{"creator":true,"destination":{"$oid":"55a2622c03e82e4eb2146bf3"},"text":"check pockets"},{"creator":true,"destination":{"$oid":"55a2623c03e82e4eb1d9c3e7"},"text":"approach the furby"}],"text":"you appear to be in a large empty warehouse with nothing in sight but a small furby off in the distance. the floor is slightly damp and you can hear water running in the distance"}
+{"_id":{"$oid":"55a25a8b03e82e51007cb36f"},"options":[],"text":"reaching into your pocket you find: three toothbrushes, 6 AA batteries, and a screwdriver"}
+{"_id":{"$oid":"55a25a9603e82e4ec33388bf"},"options":[{"creator":true,"destination":{"$oid":"55a25a8503e82e51007cb36e"},"text":"look around"},{"creator":true,"destination":{"$oid":"55a25a8b03e82e51007cb36f"},"text":"check pockets"}],"text":"what furby?"}
+{"_id":{"$oid":"55a2622c03e82e4eb2146bf3"},"options":[{"creator":true,"destination":{"$oid":"55a25a8503e82e51007cb36e"},"text":"look around"}],"text":"reaching into your pocket you find: three toothbrushes, 6 AA batteries, and a screwdriver"}
+{"_id":{"$oid":"55a2623c03e82e4eb1d9c3e7"},"options":[{"creator":true,"destination":{"$oid":"55a2653f03e82e4eb404cbbb"},"text":"disassemble the furby"},{"creator":true,"destination":{"$oid":"55a2654603e82e4eb3405d22"},"text":"replace the furby\"s batteries"},{"creator":true,"destination":{"$oid":"55a2655003e82e4eb2146bf4"},"text":"cry"},{"creator":true,"destination":{"$oid":"55a2655803e82e4eb1d9c3e9"},"text":"put the furby into your pocket"}],"text":"you walk towards the furby, it\"s dead, grey eyes stair back at you"}
+{"_id":{"$oid":"55a2631103e82e4eb1d9c3e8"},"options":[],"text":""}
+{"_id":{"$oid":"55a2653f03e82e4eb404cbbb"},"options":[],"text":""}
+{"_id":{"$oid":"55a2654603e82e4eb3405d22"},"options":[],"text":""}
+{"_id":{"$oid":"55a2655003e82e4eb2146bf4"},"options":[],"text":""}
+{"_id":{"$oid":"55a2655803e82e4eb1d9c3e9"},"options":[],"text":""}
